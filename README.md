@@ -28,7 +28,7 @@ This project was developed as part of the Applied Physics for Computing course a
 
 ### 🔌 Arduino Nano RP2040 Connect
 
-![Arduino Nano RP2040 Connect](assets/arduino_nano_rp2040_connect.webp)
+![Arduino Nano RP2040 Connect](assets/arduino.webp)
 
 ### 🔍 Sensors
 - IMU (Accelerometer + Gyroscope + Temperature)  
