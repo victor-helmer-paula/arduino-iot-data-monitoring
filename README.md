@@ -7,8 +7,9 @@ This project was developed as part of the Applied Physics for Computing course a
 
 ## 📊 Dashboard
 
-![Dashboard](dashboard/dashboard.png)
-
+<p align="center">
+  <img src="dashboard/dashboard.png" width="700"/>
+</p>
 ---
 
 ## ⚙️ Features
