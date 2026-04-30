@@ -1,9 +1,13 @@
 # Arduino IoT Data Monitoring System
 
 ## 📖 Description
-This project was developed as part of the Applied Physics for Computing course at IPBeja.
+This project was developed as part of the Applied Physics for Computing course at IPBeja and demonstrates a complete IoT pipeline including data acquisition, cloud monitoring, and data analysis.
 
-It implements a complete system for sensor data acquisition, cloud visualization, and data analysis using Arduino and Python.
+---
+
+## 📊 Dashboard
+
+![Dashboard](dashboard/dashboard.png)
 
 ---
 
@@ -21,6 +25,10 @@ It implements a complete system for sensor data acquisition, cloud visualization
 ---
 
 ## 📡 Hardware
+
+### Arduino Board
+(Add Arduino image here if desired)
+
 - Arduino Nano RP2040 Connect
 
 ### Sensors:
@@ -49,23 +57,22 @@ It implements a complete system for sensor data acquisition, cloud visualization
 
 ---
 
-## 📊 Dashboard
-(Add screenshot here)
+## 📁 Project Structure
 
-
+```
 arduino/
-lab01_sensores/
+    lab01_sensores/
+    lab02_arduino_cloud/
 
 python/
-(data analysis notebooks)
+    lab03_data_analysis/
 
 dashboard/
-(dashboard screenshots)
+    dashboard.png
 
 docs/
-(academic task descriptions)
-
-
+    (academic task descriptions)
+```
 
 ---
 
@@ -79,7 +86,7 @@ docs/
 
 ---
 
-## ⚠️ Security Note
+## 🔒 Security Note
 Credentials such as device IDs, API keys, and secret keys are NOT included in this repository for security reasons.
 
 ---
@@ -89,6 +96,3 @@ This project combines three laboratory tasks:
 - Sensor data acquisition
 - Arduino Cloud dashboard development
 - Data processing and visualization with Python
----
-
-## 📁 Project Structure
