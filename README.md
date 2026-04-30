@@ -27,7 +27,8 @@ This project was developed as part of the Applied Physics for Computing course a
 ## 📡 Hardware
 
 ### Arduino Board
-(Add Arduino image here if desired)
+
+![Arduino Nano RP2040 Connect](https://docs.arduino.cc/static/0b3f8b4f6f8c3b0c0e1c.png)
 
 - Arduino Nano RP2040 Connect
 
