@@ -1,144 +1,129 @@
-Tarefa LAB-01 – Aquisição de Dados de Sensores
-Licenciatura em Engenharia Informática – IPBeja
-Unidade Curricular: Física Aplicada à Computação
-Ano Letivo: 2025/2026
+# Lab 01 – Sensor Data Acquisition
 
-1. Objetivo do trabalho
-O objetivo deste trabalho é desenvolver um sketch modular para o Arduino Nano RP2040 Connect que permita:
-  - A aquisição em simultâneo dos dados fornecidos pelos sensores integrados na placa.
-  - A associação de uma etiqueta temporal (timestamp) a cada conjunto de leituras.
-  - A aplicação de uma filtragem por média móvel simples às leituras.
-  - A visualização dos dados no Serial Monitor ou no Serial Plotter, selecionada por variável (modo).
-  - Uma estrutura preparada para extensão futura à Tarefa 2 (Arduino Cloud).
-[Baseado no enunciado da Tarefa 1 – Aquisição de dados de sensores.]
+## 📖 Description
+This project implements a modular Arduino sketch for sensor data acquisition using the Arduino Nano RP2040 Connect.
 
-2. Hardware utilizado
+It was developed as part of the Applied Physics for Computing course at IPBeja.
 
-Placa:
-  - Arduino Nano RP2040 Connect (ABX00052).
+---
 
-Sensores físicos on-board:
-  1) IMU LSM6DSOX (acelerómetro + giroscópio + sensor de temperatura interno).
-  2) Microfone PDM (MP34DT06J).
+## 🎯 Objectives
+- Simultaneous acquisition of data from multiple sensors
+- Timestamp association with each reading
+- Implementation of moving average filtering
+- Visualization in Serial Monitor or Serial Plotter
+- Modular structure for future extension (Arduino Cloud)
 
-Parâmetros medidos (total: 3 sensores físicos, 9 parâmetros):
-  - Aceleração (g): ax, ay, az.
-  - Velocidade angular (deg/s): gx, gy, gz.
-  - Temperatura interna da IMU (ºC): temp.
-  - Som:
-      • soundRMS – nível de som RMS (valor médio quadrático).
-      • soundPeak – valor pico absoluto das amostras.
+---
 
-3. Organização do código
+## 📡 Hardware Used
+- Arduino Nano RP2040 Connect
 
-O sketch foi dividido em vários ficheiros, seguindo a estrutura sugerida no enunciado:
+### Sensors:
+- IMU (Accelerometer + Gyroscope + Temperature)
+- Microphone (RMS and Peak sound levels)
 
-3.1. Ficheiro principal
-  - lab01_sensores.ino
-    · Contém setup() e loop().
-    · Define as variáveis de configuração:
-        - outputMode: escolhe o modo de saída (0=Monitor, 1=Plotter, 2=Cloud).
-        - windowSize: tamanho da janela da média móvel.
-    · Inicializa os sensores e entra em loop de amostragem periódica.
+---
 
-3.2. Ficheiros de configuração
-  - header.h: inclui bibliotecas, define constantes (MODE_SERIAL_MONITOR, etc.) e parâmetros.
-  - types.h: define as estruturas SensorReadings e Sample.
+## ⚙️ Features
+- Real-time data acquisition
+- Moving average filtering (noise reduction)
+- Timestamped readings
+- Multiple output modes:
+  - Serial Monitor
+  - Serial Plotter
+  - Cloud-ready structure
 
-3.3. Ficheiros de sensores
-  - sensor_imu.h / sensor_imu.cpp: funções imuInit() e imuRead(...).
-  - sensor_mic.h / sensor_mic.cpp: funções micInit(), micUpdate(), micComputeFeatures(...).
+---
 
-3.4. Ficheiros de funções genéricas
-  - functions.h / functions.cpp:
-    · initSystem(): inicializa sensores.
-    · readAllSensors(...): lê todos os sensores.
-    · updateMovingAverage(...): calcula média móvel simples.
-    · processAndSendData(...): centraliza o envio/visualização dos dados (ponte para Tarefa 2).
-    · printData(...): imprime no Serial Monitor ou Plotter, consoante outputMode.
+## 🧱 Code Structure
 
-4. Como usar
+### Main File
+- `lab01_sensores.ino`
+  - Contains `setup()` and `loop()`
+  - Defines configuration parameters (output mode and filter window)
 
-4.1. Escolher modo de saída
-Abre o ficheiro lab01_sensores.ino e muda a linha:
+### Configuration Files
+- `header.h` → libraries and constants
+- `types.h` → data structures (SensorReadings, Sample)
 
-    int outputMode = MODE_SERIAL_MONITOR;
+### Sensor Modules
+- `sensor_imu.h / sensor_imu.cpp` → IMU sensor functions
+- `sensor_mic.h / sensor_mic.cpp` → microphone functions
 
-Opções:
-  - MODE_SERIAL_MONITOR (0): formato detalhado com legendas (Serial Monitor).
-  - MODE_SERIAL_PLOTTER (1): formato tabulado (Serial Plotter).
-  - MODE_CLOUD (2): reservado para Tarefa 2 (Arduino Cloud).
+### Core Functions
+- `functions.h / functions.cpp`
+  - Sensor reading
+  - Data processing
+  - Moving average calculation
+  - Output handling (Monitor / Plotter / future Cloud)
 
-Não é preciso comentar/descomentar nada; basta mudar o valor de outputMode.
+---
 
-4.2. Ajustar tamanho da média móvel
-Também em lab01_sensores.ino:
+## ▶️ How to Use
 
-    int windowSize = DEFAULT_WINDOW;  // muda para 5, 10, 20, etc.
+### 1. Select Output Mode
+Edit the following line in `lab01_sensores.ino`:
 
-O valor máximo é MAX_WINDOW (50 por omissão em functions.cpp).
+```cpp
+int outputMode = MODE_SERIAL_MONITOR;
+```
 
-4.3. Desativar filtro
-Em header.h, muda:
+Options:
+- `MODE_SERIAL_MONITOR`
+- `MODE_SERIAL_PLOTTER`
+- `MODE_CLOUD` (prepared for next task)
 
-    #define USE_FILTER true   // ou false
+---
 
-Quando false, os valores "avgReadings" são cópia dos "rawReadings" (sem filtragem).
+### 2. Adjust Filter Window
+```cpp
+int windowSize = DEFAULT_WINDOW;
+```
 
-5. Funcionamento
+You can change the value (e.g., 5, 10, 20).
 
-5.1. Aquisição simultânea
-Em cada ciclo de amostragem (SAMPLE_INTERVAL ms), todos os sensores são lidos:
-  - IMU (aceleração, giroscópio, temperatura).
-  - Microfone PDM (nível RMS e pico).
+---
 
-5.2. Etiqueta temporal
-Cada conjunto de leituras recebe um timestamp em milissegundos (função millis()).
+### 3. Upload Code
+1. Open Arduino IDE  
+2. Select board: Arduino Nano RP2040 Connect  
+3. Select correct COM port  
+4. Upload code  
+5. Open Serial Monitor or Serial Plotter  
 
-5.3. Média móvel simples
-Cada parâmetro é passado através de um filtro de média móvel com janela N:
-  - Utiliza buffer circular de tamanho máximo MAX_WINDOW.
-  - Soma as N últimas amostras e divide por N.
-  - Resultado: valores filtrados em avgReadings.
+---
 
-5.4. Visualização
-Baseado em outputMode:
-  - Monitor: imprime uma linha com "t=...", "acc_raw", "acc_avg", etc., com legendas e unidades.
-  - Plotter: imprime valores em formato tabulado (ts, ax_avg, ay_avg, az_avg, soundRMS_avg).
-  - Cloud: (Tarefa 2) enviará os dados para Arduino Cloud.
+## ⚙️ System Behavior
 
-6. Estrutura preparada para Tarefa 2
+### Data Acquisition
+- All sensors are read simultaneously at each sampling cycle
 
-A função processAndSendData(...) em functions.cpp é o ponto de entrada centralizado para envio de dados.
-No Trabalho 1, chama apenas printData(...).
-Na Tarefa 2, será estendida para chamar updateCloudVariables(...) e enviar para Arduino Cloud.
+### Timestamp
+- Each reading is associated with a timestamp (milliseconds)
 
-Isto torna fácil a transição entre Tarefa 1 e Tarefa 2 sem refazer o código inteiro.
+### Filtering
+- Moving average filter applied to sensor data
+- Uses a circular buffer with configurable window size
 
-7. Compilação e upload
+### Output
+- Serial Monitor → detailed labeled output  
+- Serial Plotter → tabulated numeric values  
+- Cloud → prepared for Task 2 integration  
 
-  1. Abre o Arduino IDE.
-  2. Carrega o ficheiro lab01_sensores.ino.
-  3. Seleciona Tools → Board → Arduino Mbed OS RP2040 Boards → Arduino Nano RP2040 Connect.
-  4. Seleciona a porta série correta em Tools → Port.
-  5. Carrega em Verify (✓) para compilar.
-  6. Carrega em Upload (→) para enviar para a placa.
-  7. Abre Tools → Serial Monitor (ou Serial Plotter) a 115200 baud.
+---
 
-8. Notas finais
+## ⚠️ Notes
+- Code is modular and easy to extend
+- Prepared for Arduino Cloud integration (Lab 02)
+- Designed for clarity, maintainability, and scalability
 
-  - O código cumpre todos os requisitos da Tarefa 1.
-  - Está preparado para ser estendido na Tarefa 2 sem grandes alterações.
-  - Todos os ficheiros estão comentados para facilitar compreensão e manutenção.
-  - Boa estrutura modular para fins educacionais.
+---
 
-Fim do README
+## 🔒 Security
+Sensitive information such as device IDs, API keys, and secret keys are NOT included in this repository.
 
+---
 
-
-
-chaves e id geradas no arduino cloud
-
-device id: 3a52bac7-eeca-4fb8-8897-a0eb8648eec1
-secret key: l?aHRpbnbq3xz#@T5I1OyAgbm
-
+## 📌 Academic Context
+This project corresponds to Lab 01 of the Applied Physics for Computing course and serves as the foundation for further development in subsequent tasks (Cloud integration and data analysis).
